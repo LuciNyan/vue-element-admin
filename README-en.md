@@ -1,15 +1,17 @@
 ## Intro
 
-> In the past half year, I have been building a backend for management dashboard using Vue. Though the backend has contained greater than 70 pages and over 10 permissions, it still takes insignificant effort to maintain the project. So I decide to make it open source so as to share my development experience and progress on backend. The tech stack is mainly [Vue.js](https://github.com/vuejs/vue)+[Element](https://github.com/ElemeFE/element)+[axios](https://github.com/mzabriskie/axios). Since it's a personal project, all the data requests are generated with [Mock.js](https://github.com/nuysoft/Mock). **Notes:** if anyone wants to modify or develop based on this project, please remove mock files, otherwise all the requests will be passed through proxy!
+> In the past half year, I have been building a backend for management dashboard using Vue. Though the backend has contained greater than 70 pages and over 10 permissions, it still takes insignificant effort to maintain the project. So I decide to make it open source so as to share my development experience and progress on backend. The tech stack is mainly [Vue.js](https://github.com/vuejs/vue)+[Element](https://github.com/ElemeFE/element)+[axios](https://github.com/mzabriskie/axios). Since it's a personal project, all data requests are simulated with [Mock.js](https://github.com/nuysoft/Mock). **Note:** if anyone wants to modify or develop based on this project, please remove the mock files.
 
 **Live demo:** http://panjiachen.github.io/vue-element-admin
+
+**Note: element-ui@1.3.3 is used in the project, so vue 2.3.0+ is required.**
 
 More tutorials incoming. Including articles on:
 
 - How to build structure of a backend dashboard project from scratch
 - How to make a complete user system (e.g. permission authentication, two-factor authentication)
 - How to package components (e.g. rich text)
-- How to integrate with [qiniu](https://www.qiniu.com/)
+- How to integrate with [Qiniu](https://www.qiniu.com/)
 - Other development experience on backend
 
 Join the group on QQ 591724180.
@@ -17,7 +19,8 @@ Join the group on QQ 591724180.
 **Tutorials:**
 
 - [Wiki](https://github.com/PanJiaChen/vue-element-admin/wiki)
-- [Step by step instructions on playing with backend using Vue - Part 1](https://juejin.im/post/59097cd7a22b9d0065fb61d2)
+- [Step by step instructions on playing with backend using Vue Part 1 - Fundamentals](https://juejin.im/post/59097cd7a22b9d0065fb61d2)
+- [Step by step instructions on playing with backend using Vue Part 2 - Login permission](https://juejin.im/post/591aa14f570c35006961acac)
 - [Step by step instructions on packaging a Vue component](https://segmentfault.com/a/1190000009090836)
 
 **Please read the Wiki and articles above before creating any issue. Feel free to contribute by making a pull request.**
@@ -47,8 +50,11 @@ Join the group on QQ 591724180.
 - Multi-environments distribution
 - Dashboard
 - Two-factor authentication
-- Collapsing sidebar
+- Collapsing sidebar (support nested routes)
 - Mock data
+- cache tabs example
+- screenfull
+- markdown2html
 
 ## Development
 
@@ -59,7 +65,7 @@ git clone https://github.com/PanJiaChen/vue-element-admin.git
 # Install dependencies
 npm install
 
-# Not recommended for cnpm due to unknown bugs, use taobao mirror instead
+# Or (not recommended for cnpm due to unknown bugs, use taobao mirror instead)
 npm install --registry=https://registry.npm.taobao.org
 
 # Run local dev server
@@ -108,6 +114,9 @@ npm run build:prod
 └── package.json               // package.json
 ```
 
+## Changelog
+Detailed changes for each release are documented in the [release notes](https://github.com/PanJiaChen/vue-element-admin/releases).
+
 ## State Management
 
 Only status of user and app configuration is managed by Vuex. Other data are managed by their own business pages.
@@ -126,9 +135,13 @@ Only status of user and app configuration is managed by Vuex. Other data are man
 
 ![](https://github.com/PanJiaChen/vue-element-admin/blob/master/gifs/leftmenu.gif)
 
-#### Drag & drop sorting
+#### Drag & drop table
 
 ![](https://github.com/PanJiaChen/vue-element-admin/blob/master/gifs/order.gif)
+
+#### Interactive table
+
+![](https://github.com/PanJiaChen/vue-element-admin/blob/master/gifs/dynamictable.gif)
 
 #### Uploading cropped avatar
 
@@ -138,7 +151,7 @@ Only status of user and app configuration is managed by Vuex. Other data are man
 
 ![](https://github.com/PanJiaChen/vue-element-admin/blob/master/gifs/errorlog.gif)
 
-#### Rich text (integrated with qiniu, watermark and customization)
+#### Rich text (integrated with Qiniu, watermark and customization)
 
 ![](https://github.com/PanJiaChen/vue-element-admin/blob/master/gifs/editor.gif)
 

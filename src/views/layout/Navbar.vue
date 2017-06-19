@@ -1,20 +1,21 @@
 <template>
     <el-menu class="navbar" mode="horizontal">
-        <Hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></Hamburger>
+        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
         <levelbar></levelbar>
-        <ErrLog v-if="log.length>0" class="errLog-container" :logsList="log"></ErrLog>
+        <error-log v-if="log.length>0" class="errLog-container" :logsList="log"></error-log>
+        <screenfull class='screenfull'></screenfull>
         <el-dropdown class="avatar-container" trigger="click">
             <div class="avatar-wrapper">
                 <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-                <i class="el-icon-caret-bottom"/>
+                <i class="el-icon-caret-bottom" />
             </div>
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
-                <router-link  class='inlineBlock' to="/">
+                <router-link class='inlineBlock' to="/">
                     <el-dropdown-item>
                         首页
                     </el-dropdown-item>
                 </router-link>
-                <router-link  class='inlineBlock' to="/admin/profile">
+                <router-link class='inlineBlock' to="/admin/profile">
                     <el-dropdown-item>
                         设置
                     </el-dropdown-item>
@@ -29,14 +30,16 @@
     import { mapGetters } from 'vuex';
     import Levelbar from './Levelbar';
     import Hamburger from 'components/Hamburger';
-    import ErrLog from 'components/ErrLog';
+    import Screenfull from 'components/Screenfull';
+    import ErrorLog from 'components/ErrLog';
     import errLogStore from 'store/errLog';
 
     export default {
       components: {
         Levelbar,
         Hamburger,
-        ErrLog
+        ErrorLog,
+        Screenfull
       },
       data() {
         return {
@@ -62,6 +65,7 @@
       }
     }
 </script>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
     .navbar {
         height: 50px;
@@ -77,6 +81,12 @@
             display: inline-block;
             position: absolute;
             right: 150px;
+        }
+        .screenfull{
+             position: absolute;
+             right: 90px;
+             top: 16px;
+             color: red;
         }
         .avatar-container {
             height: 50px;

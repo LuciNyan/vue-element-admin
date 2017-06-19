@@ -1,7 +1,7 @@
 <template>
     <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
         <div class="sidebar-wrapper">
-            <Sidebar class="sidebar-container"/>
+            <Sidebar class="sidebar-container" />
         </div>
         <div class="main-container">
             <Navbar/>
@@ -27,9 +27,9 @@
       }
     }
 </script>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
     @import "src/styles/mixin.scss";
-
     .app-wrapper {
         @include clearfix;
         position: relative;
@@ -59,12 +59,17 @@
             bottom: 0;
             left: 0;
             z-index: 1001;
-            overflow-x: hidden;
+            overflow: hidden;
             transition: all .28s ease-out;
-            @include scrollBar;
         }
         .sidebar-container {
             transition: all .28s ease-out;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: -17px;
+            overflow-y: scroll;
         }
         .main-container {
             min-height: 100%;

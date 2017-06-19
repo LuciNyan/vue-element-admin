@@ -22,10 +22,10 @@
       <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit">添加</el-button>
       <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
-      <el-checkbox class="filter-item" @change='tableKey=tableKey+1'  v-model="showAuditor">显示审核人</el-checkbox>
+      <el-checkbox class="filter-item" @change='tableKey=tableKey+1' v-model="showAuditor">显示审核人</el-checkbox>
     </div>
 
-    <el-table  :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
+    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
 
       <el-table-column align="center" label="序号" width="65">
         <template scope="scope">
@@ -58,10 +58,9 @@
         </template>
       </el-table-column>
 
-
       <el-table-column width="80px" label="重要性">
         <template scope="scope">
-           <wscn-icon-svg v-for="n in +scope.row.importance" icon-class="wujiaoxing" class="meta-item__icon" :key="n" />
+          <wscn-icon-svg v-for="n in +scope.row.importance" icon-class="wujiaoxing" class="meta-item__icon" :key="n" />
         </template>
       </el-table-column>
 
@@ -71,28 +70,28 @@
         </template>
       </el-table-column>
 
-       <el-table-column class-name="status-col" label="状态" width="90">
+      <el-table-column class-name="status-col" label="状态" width="90">
         <template scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column  align="center" label="操作" width="150">
+      <el-table-column align="center" label="操作" width="150">
         <template scope="scope">
           <el-button v-if="scope.row.status!='published'" size="small" type="success" @click="handleModifyStatus(scope.row,'published')">发布
           </el-button>
           <el-button v-if="scope.row.status!='draft'" size="small" @click="handleModifyStatus(scope.row,'draft')">草稿
           </el-button>
           <el-button v-if="scope.row.status!='deleted'" size="small" type="danger" @click="handleModifyStatus(scope.row,'deleted')">删除
-            </el-button>
+          </el-button>
         </template>
       </el-table-column>
 
     </el-table>
 
     <div v-show="!listLoading" class="pagination-container">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page" :page-sizes="[10,20,30, 50]"
-        :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
+        :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -138,27 +137,27 @@
     </el-dialog>
 
     <el-dialog title="阅读数统计" :visible.sync="dialogPvVisible" size="small">
-       <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-          <el-table-column prop="key" label="渠道"> </el-table-column>
-          <el-table-column  prop="pv" label="pv"> </el-table-column>
+      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
+        <el-table-column prop="key" label="渠道"> </el-table-column>
+        <el-table-column prop="pv" label="pv"> </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogPvVisible = false">确 定</el-button>
       </span>
-    </el-dialog >
+    </el-dialog>
 
   </div>
 </template>
 
 <script>
     import { fetchList, fetchPv } from 'api/article_table';
-    import { parseTime, objectMerge } from 'utils';
+    import { parseTime } from 'utils';
 
     const calendarTypeOptions = [
-      { key: 'FD', display_name: '经济数据' },
-      { key: 'FE', display_name: '财经大事' },
-      { key: 'BI', display_name: '国债发行' },
-      { key: 'VN', display_name: '假期报告' }
+      { key: 'CN', display_name: '中国' },
+      { key: 'US', display_name: '美国' },
+      { key: 'JP', display_name: '日本' },
+      { key: 'EU', display_name: '欧元区' }
     ];
 
     // arr to obj
@@ -265,7 +264,7 @@
           this.dialogFormVisible = true;
         },
         handleUpdate(row) {
-          objectMerge(this.temp, row)
+          this.temp = Object.assign({}, row);
           this.dialogStatus = 'update';
           this.dialogFormVisible = true;
         },
@@ -296,7 +295,8 @@
           this.temp.timestamp = +this.temp.timestamp;
           for (const v of this.list) {
             if (v.id === this.temp.id) {
-              objectMerge(v, this.temp);
+              const index = this.list.indexOf(v);
+              this.list.splice(index, 1, this.temp);
               break;
             }
           }
